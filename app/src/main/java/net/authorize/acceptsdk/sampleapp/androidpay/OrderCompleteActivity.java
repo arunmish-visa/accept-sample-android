@@ -61,13 +61,12 @@ public class OrderCompleteActivity extends Activity implements OnClickListener {
         if (paymentMethodToken != null) {
             String tokenJSON = paymentMethodToken.getToken();
             if (tokenJSON != null) {
-                Log.d("AndroidPay", "AndroidPay token before encode :" + tokenJSON);
+                // SECURITY: Do not log payment tokens — they contain encrypted card data
+                // that could be exposed via logcat, bug reports, or crash-reporting tools.
                 String blob = getBase64Blob(tokenJSON);
-                Log.d("AndroidPay", "AndroidPay Blob" + blob);
 
                 String anetBlob = createSecServiceJson(blob);
                 anetBlob = getBase64Blob(anetBlob);
-                Log.d("ANet OpaqueData Blob" , anetBlob);
                 androidPayBlobView.setText(anetBlob);
             }
             return;

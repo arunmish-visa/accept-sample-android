@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -73,6 +74,12 @@ public class CheckoutActivity extends BaseActivity
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    
+    // SECURITY: Prevent screenshots and screen recording to protect sensitive payment data
+    // (CVV, card numbers) from overlay attacks, screen capture malware, and shoulder-surfing
+    getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+        WindowManager.LayoutParams.FLAG_SECURE);
+    
     setContentView(R.layout.activity_checkout);
     setupViews();
     createNetworkTokenPaymentMethodParameters();
